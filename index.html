@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>open a bunch of pages for testing</title>
+    <style>
+      div, button {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+      #prefix, #urls {
+        font-size: 13px;
+      }
+      #urls {
+        border: 1px solid gray;
+        border-radius: 4px;
+        height: fit-content;
+        padding: 6px 12px;
+        min-width: 300px;
+        width: fit-content; 
+      }
+    </style>
+  </head>
+  <body>
+    <h1>open a bunch of pages for testing</h1>
+    <div>prefix: <input id="prefix" value="https://xkcd.com"></div>
+    <div>
+      URLs (1 per line):
+      <div id="urls" contenteditable>
+        /688<br/>
+        /730
+      </div>
+    </div>
+    <button onclick="openPages()">open!</button>
+    <script>
+      function openPages() {
+        const prefix = document.getElementById('prefix').value;
+        document.getElementById('urls').innerText.split('\n').forEach(url => {
+          try {
+            const a = document.createElement('a');
+            a.href = new URL(prefix + url).toString();
+            a.target = '_blank';
+            a.click();
+          } catch (e) {
+            console.log(e);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
